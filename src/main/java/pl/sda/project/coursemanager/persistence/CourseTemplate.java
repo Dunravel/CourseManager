@@ -24,4 +24,9 @@ public class CourseTemplate {
     public CourseTemplate(String courseName) {
         this.courseName = courseName;
     }
+
+    @Override
+    public String toString() {
+        return courseName;
+    }
 }
