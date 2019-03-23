@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Setter
@@ -14,6 +15,7 @@ public class CourseTemplate {
     @Id
     @GeneratedValue
     private Long id;
+    @NotBlank(message = "Course name is mandatory")
     private String courseName;
     private boolean active;
 
