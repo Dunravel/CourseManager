@@ -15,7 +15,7 @@ public class CourseTemplate {
     @GeneratedValue
     private Long id;
     private String courseName;
-
+    private boolean active;
 
     public CourseTemplate(){
 
@@ -23,6 +23,7 @@ public class CourseTemplate {
 
     public CourseTemplate(String courseName) {
         this.courseName = courseName;
+        this.active = false;
     }
 
     @Override
