@@ -1,0 +1,34 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link type="text/css" th:href="@{href=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="col-md-6">
+    <form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
+        <p>Login:</p>
+        <input type="text" th:field="*{login}" class="form-control" placeholder="Login">
+        <p th:if="${#fields.hasErrors('login')}" th:errors = "*{login}">Too short or too long login</p>
+
+        <p>Password</p>
+        <input type="password" th:filed="*{password}" class="form-control" placeholder="Password">
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{login}">Too short or too long login</p>
+
+        <p>Name:</p>
+        <input type="text" th:field="*{name}" class="form-control" placeholder="Name">
+
+        <p>Last name:</p>
+        <input type="text" th:field="*{lastname}" class="form-control" placeholder="Last name">
+
+        <input type="submit" class="btn btn-secondary" value="Register">
+    </form>
+</div>
+
+</body>
+</html>
