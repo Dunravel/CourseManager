@@ -1,4 +1,4 @@
-package pl.sda.project.coursemanager.persistance;
+package pl.sda.project.coursemanager.persistence;
 
 import lombok.Getter;
 import lombok.Setter;

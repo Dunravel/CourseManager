@@ -1,7 +1,7 @@
 package pl.sda.project.coursemanager.services;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.sda.project.coursemanager.persistance.CourseTemplate;
+import pl.sda.project.coursemanager.persistence.CourseTemplate;
 
 public class AdminController {
 
