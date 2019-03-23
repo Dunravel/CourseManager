@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Templates</title>
+</head>
+<body>
+<p>Courses</p>
+
+<table>
+
+    <tr>
+
+        <th>ID</th>
+
+
+        <th>NAZWA</th>
+
+    </tr>
+
+
+    <tr th:each="course,iterationStatus : ${courses}">
+
+        <td th:text="${iterationStatus.count}">1</td>
+
+
+        <td th:text="${course}">Name</td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>
