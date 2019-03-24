@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import pl.sda.project.coursemanager.SignForm;
 import pl.sda.project.coursemanager.persistence.Users;
 import pl.sda.project.coursemanager.persistence.UsersRepository;
 
@@ -17,21 +19,38 @@ public class UserController {
     @Autowired
     private UsersRepository usersRepository;
 
-    @GetMapping("/signup")
-    public String registerUser (Users users){
-        return "signform";
-    }
-
-    @PostMapping("/adduser")
-    public String addUser(@Valid Users users, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "registration";
-        }
-
-        usersRepository.save(users);
-        model.addAttribute("users", usersRepository.findAll());
+    @GetMapping(path = "/registration")
+    public String registerUser (Model model){
+        model.addAttribute("signform", new SignForm());
         return "registration";
     }
+
+    @PostMapping(path = "/newuser")
+    public String addUser(@ModelAttribute SignForm signForm, BindingResult result) {
+        System.out.println(signForm.toString());
+        if (!result.hasErrors()) {
+            Users users = new Users();
+            users.setLogin(signForm.getLogin());
+            users.setPassword(signForm.getPassword());
+            users.setName(signForm.getName());
+            users.setLastName(signForm.getLastName());
+            users.setType("USER");
+
+            if (usersRepository.findByLogin(signForm.getLogin())==null){
+                usersRepository.save(users);
+            }
+            else {
+                result.rejectValue("login","user.error", "User already exist");
+                return "registration";
+            }
+            return "registration";
+        }
+        return "redirect:/login";
+    }
+
+//    public String loginUser (){
+//
+//    }
 
 //    @GetMapping("/edit/{id}")
 //    public String showUpdateForm(@PathVariable("id") long id, Model model) {
