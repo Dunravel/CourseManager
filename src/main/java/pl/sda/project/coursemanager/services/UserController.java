@@ -11,7 +11,6 @@ import pl.sda.project.coursemanager.SignForm;
 import pl.sda.project.coursemanager.persistence.Users;
 import pl.sda.project.coursemanager.persistence.UsersRepository;
 
-import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -25,8 +24,8 @@ public class UserController {
         return "registration";
     }
 
-    @PostMapping(path = "/newuser")
-    public String addUser(@ModelAttribute SignForm signForm, BindingResult result) {
+    @PostMapping(path = "/registration")
+    public String addUser(@ModelAttribute ("signform") SignForm signForm, BindingResult result) {
         System.out.println(signForm.toString());
         if (!result.hasErrors()) {
             Users users = new Users();
@@ -43,10 +42,22 @@ public class UserController {
                 result.rejectValue("login","user.error", "User already exist");
                 return "registration";
             }
-            return "registration";
+            return "redirect:/login";
         }
         return "redirect:/login";
     }
+
+    @GetMapping(path = "/login")
+    public String redirectUser (){
+        return "login";
+    }
+
+
+
+
+
+
+
 
 //    public String loginUser (){
 //
