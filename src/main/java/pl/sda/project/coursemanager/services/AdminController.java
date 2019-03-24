@@ -24,16 +24,16 @@ public class AdminController {
         return m;
     }
 
-//    @GetMapping("/admin/listCourses")
-//    private ModelAndView adminCourses(){
-//
-//        Iterable<CourseTemplate> courseTemplates = courseTemplateRepository.findAll();
-//
-//        ModelAndView view = new ModelAndView();
-//        view.setViewName("courseList");
-//        view.addObject("courses",courseTemplates);
-//        return view;
-//    }
+    @GetMapping("/admin/listCourses")
+    private ModelAndView adminCourses(){
+
+        Iterable<CourseTemplate> courseTemplates = courseTemplateRepository.findAll();
+
+        ModelAndView view = new ModelAndView();
+        view.setViewName("courseList");
+        view.addObject("courses",courseTemplates);
+        return view;
+    }
 //
 //    @PostMapping("/admin/createCourse")
 //    private void createCourseTemplate(){
