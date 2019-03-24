@@ -1,6 +1,7 @@
 package pl.sda.project.coursemanager.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import pl.sda.project.coursemanager.persistence.UsersRepository;
 
 import javax.validation.Valid;
 
+@Controller
 public class UserController {
 
     @Autowired
@@ -28,7 +30,7 @@ public class UserController {
 
         usersRepository.save(users);
         model.addAttribute("users", usersRepository.findAll());
-        return "index";
+        return "registration";
     }
 
 //    @GetMapping("/edit/{id}")
