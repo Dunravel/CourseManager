@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,6 +18,8 @@ public class Course {
     private CourseTemplate courseTemplate;
     private LocalDate startDate;
 //    private List<Users> users;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Block> blocks;
 
     public Course() {
     }
