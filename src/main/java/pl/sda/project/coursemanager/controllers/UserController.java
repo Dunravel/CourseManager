@@ -22,21 +22,21 @@ public class UserController {
 
     @GetMapping(path = "/registration")
     public String registerUser(Model model) {
-        model.addAttribute("signform", new User());
+        model.addAttribute("usrform", new User());
         return "registration";
     }
 
     @PostMapping(path = "/registration")
-    public String addUser(@ModelAttribute("signform") User signForm, BindingResult result) {
-        userValidator.validate(signForm, result);
+    public String addUser(@ModelAttribute("usrform") User usrform, BindingResult result) {
+        userValidator.validate(usrform, result);
 
         if (result.hasErrors()) {
             return "registration";
         }
 
-        userService.save(signForm);
+        userService.save(usrform);
 
-        return "redirect:/login";
+        return "redirect:/welcome";
     }
 
     @GetMapping(path = "/login")
