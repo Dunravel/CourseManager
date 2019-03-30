@@ -5,18 +5,18 @@ import javax.validation.constraints.Size;
 
 public class SignForm {
     @NotEmpty
-    private String name = " ";
+    private String name = "";
 
     @NotEmpty
-    private String lastName = " ";
+    private String lastName = "";
 
     @NotEmpty
     @Size(min = 7, max = 15)
-    private String login =" ";
+    private String login ="";
 
     @NotEmpty
     @Size (min = 7, max = 30)
-    private String password = " ";
+    private String password = "";
 
     @NotEmpty
     private String type = "USER";
