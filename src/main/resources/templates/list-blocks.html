@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blocks</title>
+</head>
+<body>
+<p>Blocks</p>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Block</th>
+    </tr>
+    <tr th:each="block,iterationStatus : ${blocks}">
+        <td th:text="${iterationStatus.count}">1</td>
+        <td th:text="${block.name}">Name</td>
+    </tr>
+
+</table>
+<p><a href="/admin/newBlock">Add new block</a></p>
+<p><a href="/admin">Admin dashboard</a></p>
+</body>
+</html>

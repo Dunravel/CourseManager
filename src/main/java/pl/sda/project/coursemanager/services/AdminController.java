@@ -8,30 +8,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import pl.sda.project.coursemanager.persistence.Block;
+import pl.sda.project.coursemanager.persistence.BlockRepository;
 import pl.sda.project.coursemanager.persistence.CourseTemplate;
 import pl.sda.project.coursemanager.persistence.CourseTemplateRepository;
 
 @Controller
 public class AdminController {
 
+
     @Autowired
     private CourseTemplateRepository courseTemplateRepository;
+    @Autowired
+    private BlockRepository blockRepository;
 
     @GetMapping("/admin")
-    private ModelAndView adminDashboard(){
+    private ModelAndView adminDashboard() {
         ModelAndView m = new ModelAndView();
         m.setViewName("admin");
         return m;
     }
 
     @GetMapping("/admin/listCourseTemplates")
-    private ModelAndView adminCourses(){
+    private ModelAndView adminCourses() {
 
         Iterable<CourseTemplate> courseTemplates = courseTemplateRepository.findAll();
 
         ModelAndView view = new ModelAndView();
         view.setViewName("list-course-templates");
-        view.addObject("courses",courseTemplates);
+        view.addObject("courses", courseTemplates);
         return view;
     }
 //
@@ -41,34 +46,34 @@ public class AdminController {
 //    }
 
     @GetMapping("/admin/newCourseTemplate")
-    public String showAddForm(CourseTemplate courseTemplate){
+    public String showAddForm(CourseTemplate courseTemplate) {
         System.out.println("test");
         return "add-course-template";
     }
 
     @PostMapping("/admin/addCourseTemplate")
-    public String addCourseTemplate(CourseTemplate courseTemplate, BindingResult result, Model model){
-        if(result.hasErrors()){
+    public String addCourseTemplate(CourseTemplate courseTemplate, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             return "new-course-template";
         }
 
         courseTemplateRepository.save(courseTemplate);
-        model.addAttribute("courses",courseTemplateRepository.findAll());
+        model.addAttribute("courses", courseTemplateRepository.findAll());
         return "list-course-templates";
     }
 
     @GetMapping("/admin/editCourseTemplate/{id}")
-    public String showUpdateForm(@PathVariable("id") Long id, Model model){
+    public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         CourseTemplate courseTemplate = courseTemplateRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
 
-        model.addAttribute("courseTemplate",courseTemplate);
+        model.addAttribute("courseTemplate", courseTemplate);
         return "edit-course-template";
     }
 
     @PostMapping("/admin/updateCourseTemplate/{id}")
-    public String updateCourse(@PathVariable("id") Long id, CourseTemplate courseTemplate, BindingResult result, Model model){
-        if(result.hasErrors()){
+    public String updateCourse(@PathVariable("id") Long id, CourseTemplate courseTemplate, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             courseTemplate.setId(id);
             return "update-course-template";
         }
@@ -77,4 +82,33 @@ public class AdminController {
         model.addAttribute("courses", courseTemplateRepository.findAll());
         return "list-course-templates";
     }
+
+
+    @GetMapping("/admin/listBlocks")
+    private ModelAndView adminBlocks() {
+
+        Iterable<Block> blocks = blockRepository.findAll();
+
+        ModelAndView view = new ModelAndView();
+        view.setViewName("list-blocks");
+        view.addObject("blocks", blocks);
+        return view;
+    }
+
+    @GetMapping("/admin/newBlock")
+    public String showBlockAddForm(Block block) {
+        return "add-block";
+    }
+
+    @PostMapping("/admin/addBlock")
+    public String addBlock(Block block, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "new-block";
+        }
+
+        blockRepository.save(block);
+        model.addAttribute("blocks", blockRepository.findAll());
+        return "list-blocks";
+    }
+
 }
