@@ -7,33 +7,33 @@
 <body>
 
 <p>Hello Admin</p>
-<a href="courseList.html" th:href="@{/admin/listCourses}">Course list</a>
+<a href="list-course-templates.html" th:href="@{/admin/listCourseTemplates}">Course Templates list</a>
 
-<div th:switch="${courses}">
-    <h2 th:case="null">No courses yet!</h2>
-    <div th:case="*">
-        <h2>Courses</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Active</th>
-                <th>Edit</th>
-                <th>Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="course : ${courses}">
-                <td th:text="${course.courseName}"></td>
-                <td th:text="${course.active}"></td>
-                <td><a th:href="@{/edit/{id}(id=${course.id})}">Edit</a></td>
-                <td><a th:href="@{/delete/{id}(id=${course.id})}">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <p><a href="/admin/newCourse">Add a new course</a></p>
-</div>
+<!--<div th:switch="${courses}">-->
+    <!--<h2 th:case="null">No courses yet!</h2>-->
+    <!--<div th:case="*">-->
+        <!--<h2>Courses</h2>-->
+        <!--<table>-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th>Name</th>-->
+                <!--<th>Active</th>-->
+                <!--<th>Edit</th>-->
+                <!--<th>Delete</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr th:each="course : ${courses}">-->
+                <!--<td th:text="${course.courseName}"></td>-->
+                <!--<td th:text="${course.active}"></td>-->
+                <!--<td><a th:href="@{/edit/{id}(id=${course.id})}">Edit</a></td>-->
+                <!--<td><a th:href="@{/delete/{id}(id=${course.id})}">Delete</a></td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+    <!--</div>-->
+    <!--<p><a href="/admin/newCourseTemplate">Add a new Course Template</a></p>-->
+<!--</div>-->
 
 
 </body>

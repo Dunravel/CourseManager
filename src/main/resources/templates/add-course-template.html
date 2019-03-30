@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{addCourse}" th:object="${courseTemplate}"  method="post">
+<form action="#" th:action="@{addCourseTemplate}" th:object="${courseTemplate}"  method="post">
     <label for="name">Course Name</label>
     <input type="text" id="name" th:field="*{courseName}" placeholder="Course Name">
     <input type="submit" value="Add Course">
