@@ -13,20 +13,20 @@ public class User {
 
     private String name;
     private String lastName;
-    private String type;
+    private String role;
     private String status;
-    private String login;
+    private String username;
     private String password;
 
     public User (){}
 
-    public User(Long id, String name, String lastName, String type, String status, String login, String password) {
+    public User(Long id, String name, String lastName, String role, String status, String username, String password) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.type = type;
+        this.role = role;
         this.status = status;
-        this.login = login;
+        this.username = username;
         this.password = password;
     }
 
@@ -54,12 +54,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getType() {
-        return type;
+    public String getRole() {
+        return role;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getStatus() {
@@ -70,12 +70,12 @@ public class User {
         this.status = status;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

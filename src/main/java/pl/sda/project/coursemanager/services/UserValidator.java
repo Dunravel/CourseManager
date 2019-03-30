@@ -22,10 +22,10 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "login", "This field is required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "This field is required.");
 
-        if (userService.findByLogin(user.getLogin()) != null){
-            errors.rejectValue("login", "Someone already has that login.");
+        if (userService.findByLogin(user.getUsername()) != null){
+            errors.rejectValue("username", "Someone already has that login.");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "This field is required.");

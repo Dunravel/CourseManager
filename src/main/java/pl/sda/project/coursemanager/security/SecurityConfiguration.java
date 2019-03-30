@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //    @Bean
 //    public UserDetailsService userDetailsService (SignForm signForm) {
 //        UserDetails userDetails = User.UserBuilder
-//                .username(signForm.getLogin())
+//                .username(signForm.getUsername())
 //                .password(signForm.getPassword())
 //    }
 }

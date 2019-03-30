@@ -7,5 +7,5 @@ import pl.sda.project.coursemanager.persistence.User;
 public interface UserService {
     void save(User user);
 
-    User findByLogin(String login);
+    User findByLogin(String username);
 }
