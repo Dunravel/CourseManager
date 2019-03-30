@@ -20,11 +20,27 @@
         </tr>
         <tr th:each="block,iterationStatus : ${courseTemplate.blocks}">
             <td th:text="${iterationStatus.count}">1</td>
-            <td th:text="${block}">Name</td>
+            <td th:text="${block.name}">Name</td>
         </tr>
     </table>
 
+
     <p> Add existing block</p>
+    <form action="#" th:action="@{/admin/addBlockToCourseTemplate}" th:object="${courseBlock}" method="post">
+        <label for="nameCourse">Course number</label>
+        <!--<input type="number" th:field="*{courseTemplateId}" id="nameCourse" placeholder="courseNumber"><br/>-->
+        <input type="hidden" id="nameCourse" th:value="${courseTemplate.id}" th:field="*{courseTemplateId}"/>
+        <select name="blockId" th:field="*{blockId}">
+            <option th:each="block:${blocks}"
+                    th:value="${block.id}"
+                    th:utext="${block.name}">
+
+        </select>
+        <input type="submit" value="Add">
+
+    </form>
+
+
     <p> Create new block</p>
 
     <a href="list-course-templates.html" th:href="@{/admin/listCourseTemplates}">Back to list</a>

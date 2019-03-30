@@ -8,14 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import pl.sda.project.coursemanager.persistence.Block;
-import pl.sda.project.coursemanager.persistence.BlockRepository;
-import pl.sda.project.coursemanager.persistence.CourseTemplate;
-import pl.sda.project.coursemanager.persistence.CourseTemplateRepository;
+import pl.sda.project.coursemanager.persistence.*;
 
 @Controller
 public class AdminController {
-
 
     @Autowired
     private CourseTemplateRepository courseTemplateRepository;
@@ -68,6 +64,13 @@ public class AdminController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
 
         model.addAttribute("courseTemplate", courseTemplate);
+
+
+        Iterable<Block> blocks = blockRepository.findAll();
+        model.addAttribute("blocks",blocks);
+        CourseTempBlock courseTempBlock = new CourseTempBlock();
+        courseTempBlock.courseTemplateId = courseTemplate.getId();
+        model.addAttribute("courseBlock", courseTempBlock);
         return "edit-course-template";
     }
 
@@ -81,6 +84,32 @@ public class AdminController {
         courseTemplateRepository.save(courseTemplate);
         model.addAttribute("courses", courseTemplateRepository.findAll());
         return "list-course-templates";
+    }
+
+    @PostMapping("/admin/addBlockToCourseTemplate")
+    public String addBlockToCourseTemplate(CourseTempBlock courseTempBlock, Model model){
+
+        System.out.println(courseTempBlock.courseTemplateId);
+        System.out.println(courseTempBlock.blockId);
+//        System.out.println(id);
+//        System.out.println(courseTemplate.getId());
+//        Optional<Block> block = blockRepository.findById(id);
+//        courseTemplate.getBlocks().add(block.get());
+
+        CourseTemplate courseTemplate = courseTemplateRepository.findById(courseTempBlock.courseTemplateId).get();
+        Block block = blockRepository.findById(courseTempBlock.blockId).get();
+
+        courseTemplate.getBlocks().add(block);
+        courseTemplateRepository.save(courseTemplate);
+
+        model.addAttribute("courseTemplate", courseTemplate);
+        Iterable<Block> blocks = blockRepository.findAll();
+        model.addAttribute("blocks",blocks);
+        courseTempBlock = new CourseTempBlock();
+        courseTempBlock.courseTemplateId = courseTemplate.getId();
+        model.addAttribute("courseBlock", courseTempBlock);
+
+        return "edit-course-template";
     }
 
 
