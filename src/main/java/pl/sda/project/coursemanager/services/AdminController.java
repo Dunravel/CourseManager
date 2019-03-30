@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.sda.project.coursemanager.persistence.*;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class AdminController {
 
@@ -66,11 +70,28 @@ public class AdminController {
         model.addAttribute("courseTemplate", courseTemplate);
 
 
-        Iterable<Block> blocks = blockRepository.findAll();
+//        Iterable<Block> blocks = blockRepository.findAll();
+        List<Long> blockIds = courseTemplate.getBlocks().stream()
+                .map(x -> x.getId())
+                .collect(Collectors.toList());
+        Iterable<Block> blocks;
+        if(blockIds.size() != 0) {
+            blocks = blockRepository.findBlocksByIdIsNotIn(blockIds);
+        } else {
+            blocks = blockRepository.findAll();
+        }
         model.addAttribute("blocks",blocks);
         CourseTempBlock courseTempBlock = new CourseTempBlock();
         courseTempBlock.courseTemplateId = courseTemplate.getId();
         model.addAttribute("courseBlock", courseTempBlock);
+
+
+        System.out.println(courseTempBlock.courseTemplateId);
+        System.out.println(courseTempBlock.blockId);
+        System.out.println(blockIds);
+        System.out.println(((List<Block>) blocks).size());
+
+        System.out.println(blockRepository.findBlocksByIdIsNotIn(Arrays.asList(1l)));
         return "edit-course-template";
     }
 
@@ -91,10 +112,6 @@ public class AdminController {
 
         System.out.println(courseTempBlock.courseTemplateId);
         System.out.println(courseTempBlock.blockId);
-//        System.out.println(id);
-//        System.out.println(courseTemplate.getId());
-//        Optional<Block> block = blockRepository.findById(id);
-//        courseTemplate.getBlocks().add(block.get());
 
         CourseTemplate courseTemplate = courseTemplateRepository.findById(courseTempBlock.courseTemplateId).get();
         Block block = blockRepository.findById(courseTempBlock.blockId).get();
@@ -103,7 +120,16 @@ public class AdminController {
         courseTemplateRepository.save(courseTemplate);
 
         model.addAttribute("courseTemplate", courseTemplate);
-        Iterable<Block> blocks = blockRepository.findAll();
+//        Iterable<Block> blocks = blockRepository.findAll();
+        List<Long> blockIds = courseTemplate.getBlocks().stream()
+                .map(x -> x.getId())
+                .collect(Collectors.toList());
+        Iterable<Block> blocks;
+        if(blockIds.size() != 0) {
+            blocks = blockRepository.findBlocksByIdIsNotIn(blockIds);
+        } else {
+            blocks = blockRepository.findAll();
+        }
         model.addAttribute("blocks",blocks);
         courseTempBlock = new CourseTempBlock();
         courseTempBlock.courseTemplateId = courseTemplate.getId();
