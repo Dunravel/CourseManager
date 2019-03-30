@@ -21,7 +21,7 @@
         <td th:text="${iterationStatus.count}">1</td>
         <td th:text="${course}">Name</td>
         <td th:text="${course.isActive()}">Active</td>
-        <td>Edit</td>
+        <td><a href="/admin/edit/0" th:href="@{/admin/editCourseTemplate/{id}(id=${course.id})}">Edit</a></td>
         <td>Delete</td>
         <td>0</td>
         <td>0</td>

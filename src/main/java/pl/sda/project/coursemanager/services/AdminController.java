@@ -57,24 +57,24 @@ public class AdminController {
         return "list-course-templates";
     }
 
-    @GetMapping("/admin/edit/{id}")
+    @GetMapping("/admin/editCourseTemplate/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model){
         CourseTemplate courseTemplate = courseTemplateRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
 
-        model.addAttribute("course",courseTemplate);
-        return "update-course";
+        model.addAttribute("courseTemplate",courseTemplate);
+        return "edit-course-template";
     }
 
-    @PostMapping("/admin/update/{id}")
+    @PostMapping("/admin/updateCourseTemplate/{id}")
     public String updateCourse(@PathVariable("id") Long id, CourseTemplate courseTemplate, BindingResult result, Model model){
         if(result.hasErrors()){
             courseTemplate.setId(id);
-            return "update-course";
+            return "update-course-template";
         }
 
         courseTemplateRepository.save(courseTemplate);
         model.addAttribute("courses", courseTemplateRepository.findAll());
-        return "admin";
+        return "list-course-templates";
     }
 }

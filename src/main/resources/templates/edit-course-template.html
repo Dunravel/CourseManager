@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Course Template</title>
+</head>
+<body>
+    <form action="#" th:action="@{/admin/updateCourseTemplate/{id}(id=${courseTemplate.id})}" th:object="${courseTemplate}" method="post">
+        <label for="name">Name</label>
+        <input type="text" th:field="*{courseName}" id="name" placeholder="Name"><br/>
+        <label for="active">Active</label>
+        <input type="checkbox" th:field="*{active}" id="active" ><br/>
+        <input type="submit" value="Update">
+    </form>
+
+    <table>
+        <tr>
+            <th>Block ID</th>
+            <th>Block</th>
+        </tr>
+        <tr th:each="block,iterationStatus : ${courseTemplate.blocks}">
+            <td th:text="${iterationStatus.count}">1</td>
+            <td th:text="${block}">Name</td>
+        </tr>
+    </table>
+
+    <p> Add existing block</p>
+    <p> Create new block</p>
+
+    <a href="list-course-templates.html" th:href="@{/admin/listCourseTemplates}">Back to list</a>
+</body>
+</html>
