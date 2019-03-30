@@ -17,12 +17,14 @@ import pl.sda.project.coursemanager.services.UserDetailsServiceImpl;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public UserDetailsService userDetailsService () {
+    public UserDetailsService userDetailsService() {
         return new UserDetailsServiceImpl();
-    };
+    }
+
+    ;
 
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder (){
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -35,20 +37,28 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+                .authorizeRequests()
+                .antMatchers("/console/**")
+                .authenticated()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .and()
-                .logout().permitAll();
+                .logout()
+                .permitAll();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
     }
 
     @Bean
-    public AuthenticationManager manager () throws Exception {
+    public AuthenticationManager manager() throws Exception {
         return authenticationManager();
     }
 
     @Autowired
-    public void configureGlobal (AuthenticationManagerBuilder managerBuilder) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
         managerBuilder
                 .userDetailsService(userDetailsService())
                 .passwordEncoder(bCryptPasswordEncoder());

@@ -6,7 +6,8 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Registration</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
@@ -14,20 +15,20 @@
     <h1 class="h3 mb-4 font-weight-normal text-center">Create account</h1>
     <form th:object="${usrform}" th:action="@{/registration}" action="#" method="post">
         <div class="form-row">
-        <label>Login:</label>
-        <input th:type="text" th:field="*{username}" class="form-control" placeholder="Login"/>
+            <label>Login:</label>
+            <input th:type="text" th:field="*{username}" class="form-control" placeholder="Login" required/>
         </div>
         <div class="form-row">
-        <label>Password:</label>
-        <input th:type="password" th:field="*{password}" class="form-control" placeholder="Password"/>
+            <label>Password:</label>
+            <input th:type="password" th:field="*{password}" class="form-control" placeholder="Password" required/>
         </div>
         <div class="form-row">
-        <label>Name:</label>
-        <input th:type="text" th:field="*{name}" class="form-control" placeholder="Name"/>
+            <label>Name:</label>
+            <input th:type="text" th:field="*{name}" class="form-control" placeholder="Name" required/>
         </div>
         <div class="form-row">
-        <label>Last name:</label>
-        <input th:type="text" th:field="*{lastName}" class="form-control" placeholder="Last name"/>
+            <label>Last name:</label>
+            <input th:type="text" th:field="*{lastName}" class="form-control" placeholder="Last name" required/>
         </div>
         <button role="submit" class="btn btn-secondary btn-block mt-4">Register</button>
     </form>
