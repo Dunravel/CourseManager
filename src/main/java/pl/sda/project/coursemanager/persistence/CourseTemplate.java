@@ -3,10 +3,9 @@ package pl.sda.project.coursemanager.persistence;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Setter
@@ -18,6 +17,8 @@ public class CourseTemplate {
     @NotBlank(message = "Course name is mandatory")
     private String courseName;
     private boolean active;
+    @ManyToMany(cascade = CascadeType.DETACH)
+    private List<Block> blocks;
 
     public CourseTemplate(){
 
