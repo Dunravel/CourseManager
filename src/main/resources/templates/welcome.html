@@ -14,21 +14,21 @@
 
     <script src="../static/fullcalendar/core/main.js"></script>
     <script src="../static/fullcalendar/daygrid/main.js"></script>
-    <script th:type="text/javascript">
+    <!--<script>-->
+    <!--&lt;!&ndash;-->
+        <!--document.addEventListener('DOMContentLoaded', function() {-->
+            <!--var calendarEl = document.getElementById('calendar');-->
 
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
+            <!--var calendar = new FullCalendar.Calendar(calendarEl, {-->
+                <!--plugins: [ 'dayGrid' ],-->
+                <!--defaultView: 'dayGridMonth',-->
+                <!--aspectRatio: 2-->
+            <!--});-->
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: [ 'dayGrid' ],
-                defaultView: 'dayGridMonth',
-                aspectRatio: 2
-            });
-
-            calendar.render();
-        });
-
-    </script>
+            <!--calendar.render();-->
+        <!--});-->
+   <!--&ndash;&gt;-->
+    <!--</script>-->
 
 </head>
 <body class="content" style="background-color: #EEEEEE">
@@ -37,7 +37,7 @@
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="" class="d-inline-block align-top" height="50">
-            <div class="navbar-brand" style="color: white; font-family: 'Apple Chancery'">
+            <div class="navbar-brand" style="color: white">
                 <h3>Course Manager</h3>
             </div>
         </a>
@@ -60,9 +60,8 @@
 </nav>
 </header>
 <main>
-    <h1>fasfafa</h1>
-    <h1>fasfafa</h1>
-    <h1>fasfafa</h1>
-    <div id='calendar'></div>
+    <div class="container py-5">
+    <!--<div id='calendar' th:id="calendar"></div>-->
+    </div>
 </main>
 </body>
