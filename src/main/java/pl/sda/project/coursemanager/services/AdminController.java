@@ -169,6 +169,26 @@ public class AdminController {
         return "list-blocks";
     }
 
+    @GetMapping("/admin/editBlock/{id}")
+    public String showBlockUpdateForm(@PathVariable("id") Long id, Model model) {
+        Block block = blockRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
+
+        model.addAttribute("block", block);
+        return "edit-block";
+    }
+
+        @PostMapping("/admin/updateBlock/{id}")
+    public String updateBlock(@PathVariable("id") Long id, Block block, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            block.setId(id);
+            return "edit-block";
+        }
+
+        blockRepository.save(block);
+        model.addAttribute("blocks", blockRepository.findAll());
+        return "list-blocks";
+    }
 
 
     @GetMapping("/admin/listLessons")
@@ -197,6 +217,7 @@ public class AdminController {
         model.addAttribute("lessons", lessonRepository.findAll());
         return "list-lessons";
     }
+
 
 
 }
