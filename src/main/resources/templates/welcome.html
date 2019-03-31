@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link href="../static/fullcalendar/core/main.css" rel="stylesheet" />
+    <link href="../static/fullcalendar/daygrid/main.css" rel="stylesheet" />
+
+    <script src="../static/fullcalendar/core/main.js"></script>
+    <script src="../static/fullcalendar/daygrid/main.js"></script>
+    <!--<script>-->
+    <!--&lt;!&ndash;-->
+        <!--document.addEventListener('DOMContentLoaded', function() {-->
+            <!--var calendarEl = document.getElementById('calendar');-->
+
+            <!--var calendar = new FullCalendar.Calendar(calendarEl, {-->
+                <!--plugins: [ 'dayGrid' ],-->
+                <!--defaultView: 'dayGridMonth',-->
+                <!--aspectRatio: 2-->
+            <!--});-->
+
+            <!--calendar.render();-->
+        <!--});-->
+   <!--&ndash;&gt;-->
+    <!--</script>-->
+
+</head>
+<body class="content" style="background-color: #EEEEEE">
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="" class="d-inline-block align-top" height="50">
+            <div class="navbar-brand" style="color: white">
+                <h3>Course Manager</h3>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mt-1 mr-2">
+                    <i class="far fa-bell fa-2x" style="color: white"></i>
+                </li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" method="post">
+                    <button class="btn ml-md-2 btn-danger">Log out</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
+<main>
+    <div class="container py-5">
+    <!--<div id='calendar' th:id="calendar"></div>-->
+    </div>
+</main>
+</body>

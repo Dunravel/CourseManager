@@ -7,9 +7,9 @@
 <body>
     <form action="#" th:action="@{/update/{id}(id=${courseTemplate.id})}" th:object="${courseTemplate}" method="post">
         <label for="name">Name</label>
-        <input type="text" th:field="*{courseName}" id="name" placeholder="Name">
+        <input role="text" th:field="*{courseName}" id="name" placeholder="Name">
         <span th:if="${#fields.hasErrors('name')}" th:errors="*{courseName}"></span>
-        <input type="submit" value="Update Course">
+        <input role="submit" value="Update Course">
     </form>
 </body>
 </html>

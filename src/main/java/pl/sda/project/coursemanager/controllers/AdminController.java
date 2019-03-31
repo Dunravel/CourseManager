@@ -1,4 +1,4 @@
-package pl.sda.project.coursemanager.services;
+package pl.sda.project.coursemanager.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
