@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit lesson</title>
+</head>
+<body>
+<form action="#" th:action="@{/admin/updateLesson/{id}(id=${lesson.id})}" th:object="${lesson}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name"><br/>
+    <input type="submit" value="Update">
+</form>
+
+<p><a href="list-blocks.html" th:href="@{/admin/listBlocks}">Lessons list</a><br/></p>
+</body>
+</html>

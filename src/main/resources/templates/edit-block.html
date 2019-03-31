@@ -5,12 +5,13 @@
     <title>Block edit</title>
 </head>
 <body>
+<p>
 <form action="#" th:action="@{/admin/updateBlock/{id}(id=${block.id})}" th:object="${block}" method="post">
     <label for="name">Name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name"><br/>
     <input type="submit" value="Update">
 </form>
-
+</p>
 <table>
     <tr>
         <th>Lesson ID</th>
@@ -22,8 +23,8 @@
     </tr>
 </table>
 
-<a href="/admin/editBlock/0/addLesson" th:href="@{/admin/editBlock/{id}/addLesson(id=${block.id})}">Add lesson</a>
-
+<p><a href="/admin/editBlock/0/addLesson" th:href="@{/admin/editBlock/{id}/addLesson(id=${block.id})}">Add lesson</a></p>
+<p><a href="list-blocks.html" th:href="@{/admin/listBlocks}">Blocks list</a><br/></p>
 
 </body>
 </html>

@@ -179,7 +179,7 @@ public class AdminController {
         return "edit-block";
     }
 
-        @PostMapping("/admin/updateBlock/{id}")
+    @PostMapping("/admin/updateBlock/{id}")
     public String updateBlock(@PathVariable("id") Long id, Block block, BindingResult result, Model model) {
         if (result.hasErrors()) {
             block.setId(id);
@@ -240,6 +240,26 @@ public class AdminController {
     public String addLesson(Lesson lesson, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "new-lesson";
+        }
+        lessonRepository.save(lesson);
+        model.addAttribute("lessons", lessonRepository.findAll());
+        return "list-lessons";
+    }
+
+    @GetMapping("/admin/editLesson/{id}")
+    public String showLessonUpdateForm(@PathVariable("id") Long id, Model model) {
+        Lesson lesson = lessonRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid lesson ID: " + id));
+
+        model.addAttribute("lesson", lesson);
+        return "edit-lesson";
+    }
+
+    @PostMapping("/admin/updateLesson/{id}")
+    public String updateLesson(@PathVariable("id") Long id, Lesson lesson, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            lesson.setId(id);
+            return "edit-lesson";
         }
 
         lessonRepository.save(lesson);

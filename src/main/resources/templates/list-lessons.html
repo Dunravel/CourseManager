@@ -15,6 +15,7 @@
     <tr th:each="lesson,iterationStatus : ${lessons}">
         <td th:text="${lesson.id}">1</td>
         <td th:text="${lesson.name}">Name</td>
+        <td><a href="/admin/editLesson/0" th:href="@{/admin/editLesson/{id}(id=${lesson.id})}">Edit</a></td>
     </tr>
 
 </table>
