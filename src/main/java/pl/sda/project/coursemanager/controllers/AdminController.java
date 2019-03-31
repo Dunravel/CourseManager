@@ -24,13 +24,13 @@ public class AdminController {
         return m;
     }
 
-    @GetMapping("/admin/listCourses")
+    @GetMapping("/admin/listCourseTemplates")
     private ModelAndView adminCourses(){
 
         Iterable<CourseTemplate> courseTemplates = courseTemplateRepository.findAll();
 
         ModelAndView view = new ModelAndView();
-        view.setViewName("courseList");
+        view.setViewName("list-course-templates");
         view.addObject("courses",courseTemplates);
         return view;
     }
@@ -40,41 +40,41 @@ public class AdminController {
 //
 //    }
 
-    @GetMapping("/admin/newCourse")
+    @GetMapping("/admin/newCourseTemplate")
     public String showAddForm(CourseTemplate courseTemplate){
         System.out.println("test");
-        return "add-course";
+        return "add-course-template";
     }
 
-    @PostMapping("/admin/addCourse")
-    public String addCourse(CourseTemplate courseTemplate, BindingResult result, Model model){
+    @PostMapping("/admin/addCourseTemplate")
+    public String addCourseTemplate(CourseTemplate courseTemplate, BindingResult result, Model model){
         if(result.hasErrors()){
-            return "new-course";
+            return "new-course-template";
         }
 
         courseTemplateRepository.save(courseTemplate);
         model.addAttribute("courses",courseTemplateRepository.findAll());
-        return "admin";
+        return "list-course-templates";
     }
 
-    @GetMapping("/admin/edit/{id}")
+    @GetMapping("/admin/editCourseTemplate/{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model){
         CourseTemplate courseTemplate = courseTemplateRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
 
-        model.addAttribute("course",courseTemplate);
-        return "update-course";
+        model.addAttribute("courseTemplate",courseTemplate);
+        return "edit-course-template";
     }
 
-    @PostMapping("/admin/update/{id}")
+    @PostMapping("/admin/updateCourseTemplate/{id}")
     public String updateCourse(@PathVariable("id") Long id, CourseTemplate courseTemplate, BindingResult result, Model model){
         if(result.hasErrors()){
             courseTemplate.setId(id);
-            return "update-course";
+            return "update-course-template";
         }
 
         courseTemplateRepository.save(courseTemplate);
         model.addAttribute("courses", courseTemplateRepository.findAll());
-        return "admin";
+        return "list-course-templates";
     }
 }

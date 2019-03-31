@@ -10,17 +10,26 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>NAZWA</th>
-        <th>ACTIVE</th>
+        <th>Course Template</th>
+        <th>Active</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Active courses</th>
+        <th>Finished courses</th>
     </tr>
     <tr th:each="course,iterationStatus : ${courses}">
         <td th:text="${iterationStatus.count}">1</td>
         <td th:text="${course}">Name</td>
         <td th:text="${course.isActive()}">Active</td>
+        <td><a href="/admin/edit/0" th:href="@{/admin/editCourseTemplate/{id}(id=${course.id})}">Edit</a></td>
+        <td>Delete</td>
+        <td>0</td>
+        <td>0</td>
 
     </tr>
 
 </table>
-
+<p><a href="/admin/newCourseTemplate">Add a new course</a></p>
+<p><a href="/admin">Admin dashboards</a></p>
 </body>
 </html>
