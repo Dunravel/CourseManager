@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Remove Block</title>
+</head>
+<body>
+<p>Block id: <span th:text="${block.id}">[]</span><br/>
+    Block name: <span th:text="${block.name}">[]</span></p>
+<div>
+    <p>WARNING: </p>
+    Removing the lesson will be permanent. Are you sure you want to continue?
+
+    <form action="#" th:action="@{/admin/deleteBlock/{id}(id=${block.id})}" th:object="${block}" method="post">
+        <label for="delete">Yes</label>
+        <input type="checkbox" id="delete" name="delete" value="delete" onchange="document.getElementById('submit').disabled = !this.checked;" >
+        <!--<label for="no">No</label>-->
+        <!--<input type="radio" id="no" name="delete" value="0" checked>-->
+        <br/>
+        <input type="submit" value="Delete" id="submit" disabled>
+    </form>
+
+    <p><a href="list-blocks.html" th:href="@{/admin/listBlocks}">Blocks list</a><br/></p>
+
+</div>
+</body>
+</html>

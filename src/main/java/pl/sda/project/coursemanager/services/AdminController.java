@@ -279,7 +279,7 @@ public class AdminController {
         return "remove-lesson";
 
 //        model.addAttribute("lessons",lessonRepository.findAll());
-//        model.addAttribute("message","Lesson id:" + lesson.getId() + " name: " + lesson.getName() + " cannot be renmoved. \n This lesson is used in a block. Remove lesson from block before trying to delete it.");
+//        model.addAttribute("message","Lesson id:" + lesson.getId() + " name: " + lesson.getName() + " cannot be removed. \n This lesson is used in: " + blocks.size() +  " blocks. Remove lesson from block before trying to delete it.");
 //        return "list-lessons";
     }
 
@@ -296,6 +296,33 @@ public class AdminController {
     }
 
 
+    @GetMapping("/admin/removeBlock/{id}")
+    public String showBlockRemoveForm(@PathVariable("id") Long id, Model model) {
+        Block block = blockRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid block ID: " + id));
 
+        List<CourseTemplate> courseTemplates = courseTemplateRepository.findCourseTemplatesByBlocksContains(block);
+
+        if(courseTemplates.size() == 0) {
+            model.addAttribute("usedInCourseTemplates", courseTemplates);
+            model.addAttribute("block", block);
+            return "remove-block";
+        }
+        model.addAttribute("blocks",blockRepository.findAll());
+        model.addAttribute("message","Block id:" + block.getId() + " name: \"" + block.getName() + "\".  \nThis block cannot be removed. \n It is used in: " + courseTemplates.size() +  " course templates. \nRemove block from course template before trying to delete it.");
+        return "list-blocks";
+    }
+
+    @PostMapping("/admin/deleteBlock/{id}")
+    public String deleteBlock(@PathVariable("id") Long id, Block block, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            block.setId(id);
+            return "remove-block";
+        }
+
+        blockRepository.delete(block);
+        model.addAttribute("blocks", blockRepository.findAll());
+        return "list-blocks";
+    }
 
 }
