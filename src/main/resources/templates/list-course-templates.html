@@ -22,7 +22,7 @@
         <td th:text="${course}">Name</td>
         <td th:text="${course.isActive()}">Active</td>
         <td><a href="/admin/editCourseTemplate/0" th:href="@{/admin/editCourseTemplate/{id}(id=${course.id})}">Edit</a></td>
-        <td>Delete</td>
+        <td><a href="/admin/removeCourseTemplate/0" th:href="@{/admin/removeCourseTemplate/{id}(id=${course.id})}">Delete</a></td>
         <td>0</td>
         <td>0</td>
 

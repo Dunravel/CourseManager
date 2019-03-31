@@ -25,6 +25,8 @@ public class AdminController {
     private BlockRepository blockRepository;
     @Autowired
     private LessonRepository lessonRepository;
+    @Autowired
+    private CourseRepository courseRepository;
 
     @GetMapping("/admin")
     private ModelAndView adminDashboard() {
@@ -323,6 +325,35 @@ public class AdminController {
         blockRepository.delete(block);
         model.addAttribute("blocks", blockRepository.findAll());
         return "list-blocks";
+    }
+
+    @GetMapping("/admin/removeCourseTemplate/{id}")
+    public String showCourseTemplateRemoveForm(@PathVariable("id") Long id, Model model) {
+        CourseTemplate courseTemplate = courseTemplateRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid block ID: " + id));
+
+        List<Course> courses = courseRepository.findCoursesByCourseTemplate(courseTemplate);
+
+        if(courses.size() == 0) {
+//            model.addAttribute("usedInCourses", courses);
+            model.addAttribute("courseTemplate", courseTemplate);
+            return "remove-course-template";
+        }
+        model.addAttribute("courses",courseTemplateRepository.findAll());
+        model.addAttribute("message","Block id:" + courseTemplate.getId() + " name: \"" + courseTemplate.getCourseName() + "\".  \nThis template cannot be removed. \n It is used in: " + courses.size() +  " courses.");
+        return "list-course-templates";
+    }
+
+    @PostMapping("/admin/deleteCourseTemplate/{id}")
+    public String deleteCourseTemplate(@PathVariable("id") Long id, CourseTemplate courseTemplate, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            courseTemplate.setId(id);
+            return "remove-course-template";
+        }
+
+        courseTemplateRepository.delete(courseTemplate);
+        model.addAttribute("courses", courseTemplateRepository.findAll());
+        return "list-course-templates";
     }
 
 }
