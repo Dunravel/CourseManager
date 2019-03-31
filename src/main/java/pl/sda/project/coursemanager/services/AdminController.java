@@ -267,6 +267,35 @@ public class AdminController {
         return "list-lessons";
     }
 
+    @GetMapping("/admin/removeLesson/{id}")
+    public String showLessonRemoveForm(@PathVariable("id") Long id, Model model) {
+        Lesson lesson = lessonRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid lesson ID: " + id));
+
+        List<Block> blocks = blockRepository.findBlocksByLessonsContains(lesson);
+
+        model.addAttribute("usedInBlocks",blocks);
+        model.addAttribute("lesson", lesson);
+        return "remove-lesson";
+
+//        model.addAttribute("lessons",lessonRepository.findAll());
+//        model.addAttribute("message","Lesson id:" + lesson.getId() + " name: " + lesson.getName() + " cannot be renmoved. \n This lesson is used in a block. Remove lesson from block before trying to delete it.");
+//        return "list-lessons";
+    }
+
+    @PostMapping("/admin/deleteLesson/{id}")
+    public String deleteLesson(@PathVariable("id") Long id, Lesson lesson, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            lesson.setId(id);
+            return "remove-lesson";
+        }
+
+        lessonRepository.delete(lesson);
+        model.addAttribute("lessons", lessonRepository.findAll());
+        return "list-lessons";
+    }
+
+
 
 
 }

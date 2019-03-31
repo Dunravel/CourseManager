@@ -5,6 +5,7 @@
     <title>Lessons</title>
 </head>
 <body>
+
 <p>Lessons</p>
 
 <table>
@@ -16,6 +17,8 @@
         <td th:text="${lesson.id}">1</td>
         <td th:text="${lesson.name}">Name</td>
         <td><a href="/admin/editLesson/0" th:href="@{/admin/editLesson/{id}(id=${lesson.id})}">Edit</a></td>
+        <td><a href="/admin/removeLesson/0" th:href="@{/admin/removeLesson/{id}(id=${lesson.id})}">Delete</a></td>
+
     </tr>
 
 </table>
