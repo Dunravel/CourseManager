@@ -22,6 +22,8 @@ public class AdminController {
     private CourseTemplateRepository courseTemplateRepository;
     @Autowired
     private BlockRepository blockRepository;
+    @Autowired
+    private LessonRepository lessonRepository;
 
     @GetMapping("/admin")
     private ModelAndView adminDashboard() {
@@ -166,5 +168,17 @@ public class AdminController {
         model.addAttribute("blocks", blockRepository.findAll());
         return "list-blocks";
     }
+
+    @GetMapping("/admin/listLessons")
+    private ModelAndView adminLessons() {
+
+        Iterable<Lesson> lessons = lessonRepository.findAll();
+
+        ModelAndView view = new ModelAndView();
+        view.setViewName("list-lessons");
+        view.addObject("lessons", lessons);
+        return view;
+    }
+
 
 }

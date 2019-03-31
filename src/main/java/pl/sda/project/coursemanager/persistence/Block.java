@@ -14,6 +14,6 @@ public class Block {
     @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Lesson> lessons;
 }
