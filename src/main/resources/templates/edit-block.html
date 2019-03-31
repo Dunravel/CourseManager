@@ -10,5 +10,20 @@
     <input type="text" th:field="*{name}" id="name" placeholder="Name"><br/>
     <input type="submit" value="Update">
 </form>
+
+<table>
+    <tr>
+        <th>Lesson ID</th>
+        <th>Lesson</th>
+    </tr>
+    <tr th:each="lesson,iterationStatus : ${block.lessons}">
+        <td th:text="${iterationStatus.count}">1</td>
+        <td th:text="${lesson.name}">Name</td>
+    </tr>
+</table>
+
+<a href="/admin/editBlock/0/addLesson" th:href="@{/admin/editBlock/{id}/addLesson(id=${block.id})}">Add lesson</a>
+
+
 </body>
 </html>

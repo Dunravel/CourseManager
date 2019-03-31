@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Lesson to Block</title>
+</head>
+<body>
+<p> Add existing lesson</p>
+<form action="#" th:action="@{/admin/addLessonToBlock}" th:object="${blockLesson}" method="post">
+    <label for="nameCourse">Block number</label>
+    <!--<input type="number" th:field="*{courseTemplateId}" id="nameCourse" placeholder="courseNumber"><br/>-->
+    <input type="hidden" id="nameCourse" th:value="${block.id}" th:field="*{blockId}"/>
+    <select name="lessonId" th:field="*{lessonId}">
+        <option th:each="lesson:${lessons}"
+                th:value="${lesson.id}"
+                th:utext="${lesson.name}">
+    </select>
+    <input type="submit" value="Add">
+
+
+</form>
+</body>
+</html>

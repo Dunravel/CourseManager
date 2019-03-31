@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import pl.sda.project.coursemanager.dto.BlockLesson;
 import pl.sda.project.coursemanager.dto.CourseTempBlock;
 import pl.sda.project.coursemanager.persistence.*;
 
@@ -189,6 +190,34 @@ public class AdminController {
         model.addAttribute("blocks", blockRepository.findAll());
         return "list-blocks";
     }
+
+    @GetMapping("/admin/editBlock/{id}/addLesson")
+    public String showBlockLessonAddForm(@PathVariable("id") Long id, Model model) {
+        Block block = blockRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + id));
+
+        model.addAttribute("block", block);
+        model.addAttribute("lessons",lessonRepository.findAll());
+        BlockLesson blockLesson = new BlockLesson();
+        blockLesson.setBlockId(block.getId());
+        model.addAttribute("blockLesson",blockLesson);
+        return "edit-block-add-lesson";
+    }
+
+    @PostMapping("/admin/addLessonToBlock")
+    public String addLessonToBlock(BlockLesson blockLesson, Model model){
+
+        Block block= blockRepository.findById(blockLesson.getBlockId()).get();
+        Lesson lesson= lessonRepository.findById(blockLesson.getLessonId()).get();
+
+        block.getLessons().add(lesson);
+        lessonRepository.save(lesson);
+
+        model.addAttribute("block", block);
+
+        return "edit-block";
+    }
+
 
 
     @GetMapping("/admin/listLessons")
