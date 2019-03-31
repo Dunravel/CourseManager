@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Block</title>
+</head>
+<body>
+<form action="#" th:action="@{addBlock}" th:object="${block}"  method="post">
+    <label for="name">Block name</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Block Name">
+    <input type="submit" value="Add Block">
+</form>
+
+</body>
+</html>

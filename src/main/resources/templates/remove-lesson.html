@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Remove Lesson</title>
+</head>
+<body>
+<p>Lesson id: <span th:text="${lesson.id}">[]</span><br/>
+Lesson name: <span th:text="${lesson.name}">[]</span></p>
+<div th:switch="${usedInBlocks.size()}">
+    <div th:case="0">
+        <p>WARNING: </p>
+        <p>Removing the lesson will be permanent. Are you sure you want to continue?
+
+        <form action="#" th:action="@{/admin/deleteLesson/{id}(id=${lesson.id})}" th:object="${lesson}" method="post">
+            <label for="delete">Yes</label>
+            <input type="checkbox" id="delete" name="delete" value="delete" onchange="document.getElementById('sumbit').disabled = !this.checked;" >
+            <!--<label for="no">No</label>-->
+            <!--<input type="radio" id="no" name="delete" value="0" checked>-->
+            <br/>
+            <input type="submit" value="Delete" id="sumbit" disabled>
+        </form>
+
+
+        </p>
+        <p><a href="list-lessons.html" th:href="@{/admin/listLessons}">Lessons list</a><br/></p>
+    </div>
+    <div th:case="*">
+        <p>Lesson is used in <span th:text="${usedInBlocks.size()}"> xx </span> blocks. Cannot delete. <br/>
+            Remove lesson from blocks.
+        </p>
+        <p>List of blocks with this lesson:<br/>
+            <tr th:each="block,iterationStatus : ${usedInBlocks}">
+                <td th:text="${block.id}">1</td>
+                <td th:text="${block.name}">Name</td>
+            </tr>
+        </p>
+
+        <p><a href="list-lessons.html" th:href="@{/admin/listLessons}">Lessons list</a><br/></p>
+        <p><a href="list-blocks.html" th:href="@{/admin/listBlocks}">Blocks list</a><br/></p>
+    </div>
+</div>
+
+</body>
+</html>

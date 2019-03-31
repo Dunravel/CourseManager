@@ -17,7 +17,7 @@ public class CourseTemplate {
     @NotBlank(message = "Course name is mandatory")
     private String courseName;
     private boolean active;
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH})
     private List<Block> blocks;
 
     public CourseTemplate(){
