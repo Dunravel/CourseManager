@@ -169,6 +169,8 @@ public class AdminController {
         return "list-blocks";
     }
 
+
+
     @GetMapping("/admin/listLessons")
     private ModelAndView adminLessons() {
 
@@ -178,6 +180,22 @@ public class AdminController {
         view.setViewName("list-lessons");
         view.addObject("lessons", lessons);
         return view;
+    }
+
+    @GetMapping("/admin/newLesson")
+    public String showLessonAddForm(Lesson lesson) {
+        return "add-lesson";
+    }
+
+    @PostMapping("/admin/addLesson")
+    public String addLesson(Lesson lesson, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "new-lesson";
+        }
+
+        lessonRepository.save(lesson);
+        model.addAttribute("lessons", lessonRepository.findAll());
+        return "list-lessons";
     }
 
 
