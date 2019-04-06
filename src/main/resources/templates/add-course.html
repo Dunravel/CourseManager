@@ -17,6 +17,12 @@
                 th:utext="${templates.courseName}">
 
     </select><br/>
+    <select name="status" id="status" th:field="*{status}">
+        <option th:each="state : ${T(pl.sda.project.coursemanager.domain.CourseStatus).values()}"
+                th:value="${state}"
+                th:text="${state}">
+        </option>
+    </select>
     <!--<select name="courseTemplate" th:field="*{teacher}">-->
         <!--<option th:each="teach:${teachers}"-->
                 <!--th:value="${teach}"-->
