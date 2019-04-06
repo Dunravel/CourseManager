@@ -15,7 +15,10 @@ public class Course {
     private Long id;
     @OneToOne(cascade= CascadeType.PERSIST)
     private CourseTemplate courseTemplate;
+    private String name;
+    private String shortName;
     private LocalDate startDate;
+    private User teacher;
 //    private List<Users> users;
 
 

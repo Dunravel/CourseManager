@@ -16,4 +16,5 @@ public class Lesson {
     @GeneratedValue
     private Long id;
     private String name;
+    private LocalDate date;
 }

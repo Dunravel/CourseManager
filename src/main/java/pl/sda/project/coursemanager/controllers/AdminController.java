@@ -36,7 +36,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/listCourseTemplates")
-    private ModelAndView adminCourses() {
+    private ModelAndView adminCourseTemplates() {
 
         Iterable<CourseTemplate> courseTemplates = courseTemplateRepository.findAll();
 
@@ -355,5 +355,33 @@ public class AdminController {
         model.addAttribute("courses", courseTemplateRepository.findAll());
         return "list-course-templates";
     }
+
+
+    @GetMapping("/admin/listCourses")
+    private ModelAndView adminCourses() {
+
+        Iterable<Course> courses = courseRepository.findAll();
+
+        ModelAndView view = new ModelAndView();
+        view.setViewName("list-courses");
+        view.addObject("courses", courses);
+        return view;
+    }
+
+    @GetMapping("/admin/newCourse")
+    public String showCourseAddForm(Course course) {
+        return "add-course";
+    }
+
+    @PostMapping("/admin/addCourse")
+    public String addCourse(Course course, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "new-course";
+        }
+        courseRepository.save(course);
+        model.addAttribute("courses", courseRepository.findAll());
+        return "list-courses";
+    }
+
 
 }
