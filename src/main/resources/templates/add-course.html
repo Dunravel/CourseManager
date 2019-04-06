@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add/Edit Course</title>
+</head>
+<body>
+<form action="#" th:action="@{addCourse}" th:object="${course}"  method="post">
+    <label for="name">Course name</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Course Name"><br/>
+    <label for="name">Short name</label>
+    <input type="text" id="short-name" th:field="*{shortName}" placeholder="Short Name - JavaKrk13"><br/>
+    <label for="courseTemplate">Course template</label>
+    <select name="courseTemplate" id="courseTemplate" th:field="*{courseTemplate}">
+        <option th:each="templates:${courseTemplates}"
+                th:value="${templates.id}"
+                th:utext="${templates.courseName}">
+
+    </select><br/>
+    <select name="status" id="status" th:field="*{status}">
+        <option th:each="state : ${T(pl.sda.project.coursemanager.domain.CourseStatus).values()}"
+                th:value="${state}"
+                th:text="${state}">
+        </option>
+    </select>
+    <!--<select name="courseTemplate" th:field="*{teacher}">-->
+        <!--<option th:each="teach:${teachers}"-->
+                <!--th:value="${teach}"-->
+                <!--th:utext="${teach.name}">-->
+
+    <!--</select>-->
+    <input type="submit" value="Save Course"><br/>
+    <a href="list-courses.html" th:href="@{/admin/listCourses}">Return to courses list</a><br/>
+</form>
+</body>
+</html>

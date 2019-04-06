@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import pl.sda.project.coursemanager.domain.CourseStatus;
 import pl.sda.project.coursemanager.dto.BlockLesson;
 import pl.sda.project.coursemanager.dto.CourseTempBlock;
 import pl.sda.project.coursemanager.persistence.*;
@@ -36,7 +37,7 @@ public class AdminController {
     }
 
     @GetMapping("/admin/listCourseTemplates")
-    private ModelAndView adminCourses() {
+    private ModelAndView adminCourseTemplates() {
 
         Iterable<CourseTemplate> courseTemplates = courseTemplateRepository.findAll();
 
@@ -354,6 +355,73 @@ public class AdminController {
         courseTemplateRepository.delete(courseTemplate);
         model.addAttribute("courses", courseTemplateRepository.findAll());
         return "list-course-templates";
+    }
+
+
+    @GetMapping("/admin/listCourses")
+    private ModelAndView adminCourses() {
+
+        Iterable<Course> courses = courseRepository.findAll();
+
+        ModelAndView view = new ModelAndView();
+        view.setViewName("list-courses");
+        view.addObject("courses", courses);
+        return view;
+    }
+
+    @GetMapping("/admin/newCourse")
+    public String showCourseAddForm(Course course, Model model) {
+        model.addAttribute("courseTemplates",courseTemplateRepository.findCourseTemplatesByActiveEquals(true));
+        return "add-course";
+    }
+
+    @PostMapping("/admin/addCourse")
+    public String addCourse(Course course, BindingResult result, Model model) {
+
+//        if (result.hasErrors()) {
+//            return "list-courses";
+//        }
+        courseRepository.save(course);
+        model.addAttribute("courses", courseRepository.findAll());
+        return "list-courses";
+    }
+
+
+    @GetMapping("/admin/editCourse/{id}")
+    public String showCourseUpdateForm(@PathVariable("id") Long id, Model model) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + id));
+
+        model.addAttribute("course", course);
+        model.addAttribute("courseTemplates",courseTemplateRepository.findCourseTemplatesByActiveEquals(true));
+        return "add-course";
+    }
+
+    @GetMapping("/admin/removeCourse/{id}")
+    public String showCourseRemoveForm(@PathVariable("id") Long id, Model model) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + id));
+
+        if(course.getStatus() == CourseStatus.DRAFT || course.getStatus() == null) {
+//            model.addAttribute("usedInCourses", courses);
+            model.addAttribute("course", course);
+            return "remove-course";
+        }
+        model.addAttribute("courses",courseRepository.findAll());
+        model.addAttribute("message","Block id:" + course.getId() + " name: \"" + course.getName() + "\".  \nThis course cannot be removed. \n It is not in DRAFT status.");
+        return "list-courses";
+    }
+
+    @PostMapping("/admin/deleteCourse/{id}")
+    public String deleteCourse(@PathVariable("id") Long id, Course course, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            course.setId(id);
+            return "remove-course";
+        }
+
+        courseRepository.delete(course);
+        model.addAttribute("courses", courseRepository.findAll());
+        return "list-courses";
     }
 
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Remove Course</title>
+</head>
+<body>
+<p>Course id: <span th:text="${course.id}">[]</span><br/>
+    Course name: <span th:text="${course.name}">[]</span></p>
+<div>
+    <p>WARNING: </p>
+    Removing the course will be permanent. Are you sure you want to continue?
+
+    <form action="#" th:action="@{/admin/deleteCourse/{id}(id=${course.id})}" th:object="${course}" method="post">
+        <label for="delete">Yes, I want to delete the course draft</label>
+        <input type="checkbox" id="delete" name="delete" value="delete" onchange="document.getElementById('submit').disabled = !this.checked;" >
+        <!--<label for="no">No</label>-->
+        <!--<input type="radio" id="no" name="delete" value="0" checked>-->
+        <br/>
+        <input type="submit" value="Delete" id="submit" disabled>
+    </form>
+
+    <p><a href="list-blocks.html" th:href="@{/admin/listBlocks}">Blocks list</a><br/></p>
+</div>
+</body>
+</html>
