@@ -13,12 +13,13 @@ public class Course {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne(cascade= CascadeType.PERSIST)
-    private CourseTemplate courseTemplate;
     private String name;
     private String shortName;
+    @OneToOne(cascade= CascadeType.PERSIST)
+    private CourseTemplate courseTemplate;
+//    @OneToMany(cascade= CascadeType.PERSIST)
+//    private User teacher;
     private LocalDate startDate;
-    private User teacher;
 //    private List<Users> users;
 
 

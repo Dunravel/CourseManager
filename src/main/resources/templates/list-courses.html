@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Course</th>
+        <!--<th>Active</th>-->
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="course,iterationStatus : ${courses}">
+        <td th:text="${iterationStatus.count}">1</td>
+        <td th:text="${course.name}">Name</td>
+        <!--<td th:text="${course.courseTemplate.isActive()}">Active</td>-->
+        <td><a href="/admin/editCourseTemplate/0" th:href="@{/admin/editCourse/{id}(id=${course.id})}">Edit</a></td>
+        <td><a href="/admin/removeCourseTemplate/0" th:href="@{/admin/removeCourse/{id}(id=${course.id})}">Delete</a></td>
+
+    </tr>
+
+</table>
+<p><a href="/admin/newCourse">Add a new course</a></p>
+<p><a href="/admin">Admin dashboards</a></p>
+
+</body>
+</html>

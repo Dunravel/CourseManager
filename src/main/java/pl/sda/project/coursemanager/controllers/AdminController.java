@@ -369,19 +369,31 @@ public class AdminController {
     }
 
     @GetMapping("/admin/newCourse")
-    public String showCourseAddForm(Course course) {
+    public String showCourseAddForm(Course course, Model model) {
+        model.addAttribute("courseTemplates",courseTemplateRepository.findCourseTemplatesByActiveEquals(true));
         return "add-course";
     }
 
     @PostMapping("/admin/addCourse")
     public String addCourse(Course course, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "new-course";
-        }
+
+//        if (result.hasErrors()) {
+//            return "list-courses";
+//        }
         courseRepository.save(course);
         model.addAttribute("courses", courseRepository.findAll());
         return "list-courses";
     }
 
+
+    @GetMapping("/admin/editCourse/{id}")
+    public String showCourseUpdateForm(@PathVariable("id") Long id, Model model) {
+        Course course = courseRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid course ID: " + id));
+
+        model.addAttribute("course", course);
+        model.addAttribute("courseTemplates",courseTemplateRepository.findCourseTemplatesByActiveEquals(true));
+        return "add-course";
+    }
 
 }
